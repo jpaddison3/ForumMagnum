@@ -16,7 +16,7 @@ const StickiedPosts = ({
 }: {
   classes: ClassesType,
 }) => {
-  const { SingleColumnSection, PostsList2, TargetedJobAd } = Components
+  const { SingleColumnSection, PostsList2 } = Components
 
   return <SingleColumnSection className={classes.root}>
     <PostsList2

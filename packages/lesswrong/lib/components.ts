@@ -25,7 +25,6 @@ if (forumTypeSetting.get() === 'EAForum') {
   importComponent("EventBanner", () => require('../components/ea-forum/EventBanner'));
   importComponent("MaintenanceBanner", () => require('../components/common/MaintenanceBanner'));
   importComponent("SiteLogo", () => require('../components/ea-forum/SiteLogo'));
-  importComponent("StickiedPosts", () => require('../components/ea-forum/StickiedPosts'))
   importComponent("TargetedJobAdSection", () => require('../components/ea-forum/TargetedJobAdSection'))
   importComponent("TargetedJobAd", () => require('../components/ea-forum/TargetedJobAd'))
   importComponent("UrlHintText", () => require('../components/ea-forum/UrlHintText'))
@@ -33,6 +32,10 @@ if (forumTypeSetting.get() === 'EAForum') {
   importComponent("EAUsersProfile", () => require('../components/ea-forum/users/EAUsersProfile'))
   importComponent("EAUsersProfileTabbedSection", () => require('../components/ea-forum/users/modules/EAUsersProfileTabbedSection'))
   importComponent("EAUsersProfileTags", () => require('../components/ea-forum/users/modules/EAUsersProfileTags'))
+}
+
+if (forumTypeSetting.get() === 'Personal') {
+  importComponent("HomePersonalBlogSite", () => require('../components/personal-blog-site/HomePersonalBlogsite'));
 }
 
 importComponent("ConversationTitleEditForm", () => require('../components/messaging/ConversationTitleEditForm'));
@@ -250,6 +253,7 @@ importComponent("PostsItemIcons", () => require('../components/posts/PostsItemIc
 importComponent("SpreadsheetPage", () => require('../components/posts/SpreadsheetPage'));
 importComponent("PostsCompareRevisions", () => require('../components/posts/PostsCompareRevisions'));
 importComponent("AddToCalendarButton", () => require('../components/posts/AddToCalendar/AddToCalendarButton'));
+importComponent("StickiedPosts", () => require('../components/posts/StickiedPosts'))
 
 importComponent("PostsSingleSlug", () => require('../components/posts/PostsSingleSlug'));
 importComponent("PostsSingleSlugRedirect", () => require('../components/posts/PostsSingleSlugRedirect'));

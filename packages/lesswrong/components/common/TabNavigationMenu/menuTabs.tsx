@@ -20,7 +20,9 @@ import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import { communityPath } from '../../../lib/routes';
 import { REVIEW_YEAR } from '../../../lib/reviewUtils';
 import { ForumOptions } from '../../../lib/forumTypeUtils';
-import { taggingNamePluralCapitalSetting, taggingNamePluralSetting } from '../../../lib/instanceSettings';
+import { PublicInstanceSetting, taggingNamePluralCapitalSetting, taggingNamePluralSetting } from '../../../lib/instanceSettings';
+
+const aboutMeLinkSetting = new PublicInstanceSetting<string>('aboutMeLink', '', 'required')
 
 // The sidebar / bottom bar of the Forum contain 10 or so similar tabs, unique to each Forum. The
 // tabs can appear in
@@ -339,6 +341,55 @@ export const menuTabs: ForumOptions<Array<MenuTab>> = {
       subItem: true,
       compressedIconComponent: Info,
       showOnCompressed: true,
+    }, {
+      id: 'contact',
+      title: 'Contact Us',
+      link: '/contact',
+      subItem: true,
+    }
+  ],
+  Personal: [
+    {
+      id: 'home',
+      title: 'Home',
+      link: '/',
+      iconComponent: Home,
+      tooltip: 'See recent posts on strategies for doing the most good, plus recent activity from all across the Forum.',
+      showOnMobileStandalone: true,
+      showOnCompressed: true,
+    }, {
+      id: 'wiki',
+      title: 'Wiki',
+      mobileTitle: 'Wiki',
+      link: '/tags/all',
+      iconComponent: LocalOffer,
+      tooltip: 'Collaboratively edited Tags and Wiki Articles',
+      showOnMobileStandalone: true,
+      showOnCompressed: true,
+    }, {
+      id: 'divider',
+      divider: true,
+      showOnCompressed: true,
+    }, {
+      id: 'shortform',
+      title: 'Shortform',
+      link: '/shortform',
+      subItem: true,
+    // }, {
+    //   id: 'subscribeWidget',
+    //   customComponentName: "SubscribeWidget",
+    }, {
+      id: 'about',
+      title: 'About the Forum',
+      link: '/about',
+      subItem: true,
+      compressedIconComponent: Info,
+      showOnCompressed: true,
+    }, {
+      id: 'about-me',
+      title: 'About Me',
+      link: aboutMeLinkSetting.get(),
+      subItem: true,
     }, {
       id: 'contact',
       title: 'Contact Us',

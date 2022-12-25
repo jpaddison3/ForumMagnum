@@ -103,6 +103,10 @@ const postsPerWeek = forumSelect({
     30: 2,
     45: 1,
   },
+  Personal: {
+    2: 1,
+    10: 0,
+  },
 });
 
 const viewNames = {
@@ -141,7 +145,7 @@ class SubscribeDialog extends Component<SubscribeDialogProps,SubscribeDialogStat
       method: this.props.method,
       copiedRSSLink: false,
       subscribedByEmail: false,
-      
+
       view: (this.props.method === "email" && !this.emailFeedExists(this.props.view)) ? "curated" : this.props.view,
     };
   }
@@ -160,7 +164,7 @@ class SubscribeDialog extends Component<SubscribeDialogProps,SubscribeDialogStat
   sendVerificationEmail() {
     const { updateCurrentUser, currentUser } = this.props;
     if (!currentUser) return;
-    
+
     void updateCurrentUser({
       whenConfirmationEmailSent: new Date()
     });
@@ -186,7 +190,7 @@ class SubscribeDialog extends Component<SubscribeDialogProps,SubscribeDialogStat
   }
 
   emailSubscriptionEnabled() {
-    return this.props.currentUser && getUserEmail(this.props.currentUser) 
+    return this.props.currentUser && getUserEmail(this.props.currentUser)
   }
 
   emailFeedExists(view) {

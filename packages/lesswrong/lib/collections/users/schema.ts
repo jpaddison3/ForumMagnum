@@ -13,6 +13,9 @@ import GraphQLJSON from 'graphql-type-json';
 import { REVIEW_NAME_IN_SITU, REVIEW_YEAR } from '../../reviewUtils';
 import uniqBy from 'lodash/uniqBy'
 import { userThemeSettings, defaultThemeOptions } from "../../../themes/themeNames";
+import { forumSelect } from '../../forumTypeUtils';
+
+const isPersonalBlogSite = forumTypeSetting.get() === 'Personal'
 
 ///////////////////////////////////////
 // Order for the Schema is as follows. Change as you see fit:
@@ -522,7 +525,13 @@ const schema: SchemaType<DbUser> = {
     canCreate: ['members'],
     canUpdate: ownsOrIsAdmin,
     canRead: ownsOrIsAdmin,
-    hidden: forumTypeSetting.get() !== "EAForum",
+    hidden: forumSelect({
+      LessWrong: true,
+      AlignmentForum: true,
+      EAForum: false,
+      Personal: false,
+      default: true,
+    }),
     control: "ThemeSelect",
     order: 1,
     group: formGroups.siteCustomizations,
@@ -2297,6 +2306,10 @@ const schema: SchemaType<DbUser> = {
     control: 'checkbox',
     group: formGroups.disabledPrivileges,
     order: 69,
+    ...(isPersonalBlogSite ?
+      {...schemaDefaultValue(true)} :
+      {}
+    )
   },
   allCommentingDisabled: {
     type: Boolean,

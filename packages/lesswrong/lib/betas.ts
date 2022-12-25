@@ -6,6 +6,7 @@
 //
 // Beta-feature test functions must handle the case where user is null.
 
+import { forumSelect } from "./forumTypeUtils";
 import { forumTypeSetting } from "./instanceSettings";
 
 // States for in-progress features
@@ -17,6 +18,7 @@ const disabled = (user: UsersCurrent|DbUser|null): boolean => false; // eslint-d
 const karmaGated = (minKarma: number) => (user: UsersCurrent|DbUser|null): boolean => user ? user.karma>=minKarma : false;
 
 const isEAForum = forumTypeSetting.get() === 'EAForum'
+const isPersonalBlogSite = forumTypeSetting.get() === 'Personal'
 
 //////////////////////////////////////////////////////////////////////////////
 // Features in progress                                                     //
@@ -32,7 +34,13 @@ export const userCanUseSharing = (user: UsersCurrent|DbUser|null): boolean => mo
 export const userHasNewTagSubscriptions =  isEAForum ? shippedFeature : disabled
 export const userHasDefaultProfilePhotos = disabled
 
-export const userHasThemePicker = isEAForum ? adminOnly : shippedFeature;
+export const userHasThemePicker = forumSelect({
+  LessWrong: shippedFeature,
+  AlignmentForum: shippedFeature,
+  EAForum: adminOnly,
+  Personal: adminOnly,
+  default: shippedFeature,
+})
 
 export const userHasSideComments = isEAForum ? optInOnly : shippedFeature;
 

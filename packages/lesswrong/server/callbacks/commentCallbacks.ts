@@ -16,7 +16,7 @@ import { ensureIndex } from '../../lib/collectionIndexUtils';
 import { triggerReviewIfNeeded } from "./sunshineCallbackUtils";
 import ReadStatuses from '../../lib/collections/readStatus/collection';
 
-
+const isPersonalBlogSite = forumTypeSetting.get() === 'Personal'
 const MINIMUM_APPROVAL_KARMA = 5
 
 // This should get refactored someday to be more forum-neutral
@@ -51,6 +51,9 @@ getCollectionHooks("Comments").newValidate.add(async function createShortformPos
         ...comment,
         postId: currentUser.shortformFeedId
       });
+    }
+    if (isPersonalBlogSite && currentUser.postingDisabled) {
+      throw new Error("You cannot create shortform posts on this forum")
     }
     
     const post = await createMutator({

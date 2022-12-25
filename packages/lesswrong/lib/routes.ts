@@ -1081,6 +1081,15 @@ const forumSpecificRoutes = forumSelect<Route[]>({
       background: postBackground
     },
   ],
+  Personal: [
+    {
+      name:'home',
+      path:'/',
+      componentName: 'HomePersonalBlogSite',
+      enableResourcePrefetch: true,
+      sunshineSidebar: true
+    }
+  ],
   default: [
     {
       name:'home',

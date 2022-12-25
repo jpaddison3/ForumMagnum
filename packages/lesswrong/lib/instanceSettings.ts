@@ -30,7 +30,7 @@ const getSetting = <T>(settingName: string, settingDefault?: T): T => {
     const rootSetting = getNestedProperty(instanceSettings, settingName);
     const privateSetting = instanceSettings.private && getNestedProperty(instanceSettings.private, settingName);
     const publicSetting = instanceSettings.public && getNestedProperty(instanceSettings.public, settingName);
-    
+
     // if setting is an object, "collect" properties from all three places
     if (anyIsObject(rootSetting, privateSetting, publicSetting)) {
       setting = {
@@ -63,25 +63,25 @@ const getSetting = <T>(settingName: string, settingDefault?: T): T => {
 
 };
 
-/* 
+/*
   A setting which is configured via Meteor's configuration system, ie in `settings.json`, as opposed to a database setting.
 
   For documentation on database settings, see `databaseSettings.ts`
-  
-  arguments: 
+
+  arguments:
     settingName: JSON path to the setting in the settings.json file
     defaultValue: What value <Setting>.get() returns when no value is found in the JSON file
-    settingType: 
+    settingType:
       "warning": Logs a console warning when no value is provided in the settings.json path
       "required": Throws an error when no value is provided in the settings.json path
       "optional": No warnings or errors are logged when no value is provided in the specified settings.json path
 
-  Method: 
+  Method:
     get: Returns the current value of the setting
 */
 export class PublicInstanceSetting<SettingValueType> {
   constructor(
-    private settingName: string, 
+    private settingName: string,
     private defaultValue: SettingValueType,
     private settingType: "optional" | "warning" | "required"
   ) {
@@ -97,7 +97,7 @@ export class PublicInstanceSetting<SettingValueType> {
         }
         if (settingType === "required") {
           throw Error(`No setting value provided for public instance setting for setting with name ${settingName} despite it being marked as required`)
-        } 
+        }
       }
     }
   }
@@ -110,7 +110,7 @@ export class PublicInstanceSetting<SettingValueType> {
   Public Instance Settings
 */
 
-export type ForumTypeString = "LessWrong"|"AlignmentForum"|"EAForum";
+export type ForumTypeString = "LessWrong"|"AlignmentForum"|"EAForum"|"Personal";
 export const allForumTypes: Array<ForumTypeString> = ["LessWrong","AlignmentForum","EAForum"];
 export const forumTypeSetting = new PublicInstanceSetting<ForumTypeString>('forumType', 'LessWrong', 'warning') // What type of Forum is being run, {LessWrong, AlignmentForum, EAForum}
 export const forumTitleSetting = new PublicInstanceSetting<string>('title', 'LessWrong', 'warning') // Default title for URLs

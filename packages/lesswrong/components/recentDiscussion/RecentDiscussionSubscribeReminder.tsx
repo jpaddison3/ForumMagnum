@@ -136,7 +136,7 @@ const RecentDiscussionSubscribeReminder = ({classes}: {
   }, [adminBranch, currentUser?.isAdmin]);
 
   // disable on AlignmentForum
-  if (forumTypeSetting.get() === 'AlignmentForum') {
+  if (['Personal', 'AlignmentForum'].includes(forumTypeSetting.get())) {
     return null;
   }
 

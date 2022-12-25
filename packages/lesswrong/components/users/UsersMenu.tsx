@@ -29,6 +29,7 @@ import {afNonMemberDisplayInitialPopup} from "../../lib/alignment-forum/displayA
 import { userCanPost } from '../../lib/collections/posts';
 import { DisableNoKibitzContext } from './UsersNameDisplay';
 
+const isPersonalBlogSite = forumTypeSetting.get() === 'Personal';
 
 const styles = (theme: ThemeType): JssStyles => ({
   root: {
@@ -85,7 +86,14 @@ const UsersMenu = ({classes}: {
     </div>
   }
 
-  const showNewButtons = (forumTypeSetting.get() !== 'AlignmentForum' || userCanDo(currentUser, 'posts.alignment.new')) && !currentUser.deleted
+  let showNewButtons = true
+  if ((forumTypeSetting.get() === 'AlignmentForum' && !userCanDo(currentUser, 'posts.alignment.new')) && currentUser.deleted) {
+    showNewButtons = false
+  }
+  if (isPersonalBlogSite && !currentUser.isAdmin) {
+    showNewButtons = false
+  }
+  
   const isAfMember = currentUser.groups && currentUser.groups.includes('alignmentForum')
   const isEAForum = forumTypeSetting.get() === 'EAForum'
   
@@ -160,7 +168,7 @@ const UsersMenu = ({classes}: {
                 }
               </MenuItem>
             </div>}
-            {!isEAForum && <Link to={'/drafts'}>
+            {!isEAForum && !isPersonalBlogSite && <Link to={'/drafts'}>
               <MenuItem>
                 <ListItemIcon>
                   <EditIcon className={classes.icon}/>

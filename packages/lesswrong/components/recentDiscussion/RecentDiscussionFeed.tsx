@@ -7,6 +7,7 @@ import { forumTypeSetting } from '../../lib/instanceSettings';
 import { AnalyticsContext } from '../../lib/analyticsEvents';
 
 const isEAForum = forumTypeSetting.get() === "EAForum"
+const isPersonalBlogSite = forumTypeSetting.get() === "Personal"
 
 const RecentDiscussionFeed = ({
   commentsLimit, maxAgeHours, af,
@@ -139,7 +140,7 @@ const RecentDiscussionFeed = ({
               },
               meetupsPoke: {
                 fragmentName: null,
-                render: () => isEAForum ? null : <RecentDiscussionMeetupsPoke/>
+                render: () => isEAForum || isPersonalBlogSite ? null : <RecentDiscussionMeetupsPoke/>
               },
             }}
           />
