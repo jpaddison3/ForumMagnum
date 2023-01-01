@@ -451,6 +451,7 @@ declare global {
     postImageStyles: JssStyles,
     voting: {strongVoteDelay: number},
     secondary: any,
+    boldLinks?: boolean,
     
     // Used by material-UI. Not used by us directly (for our styles use
     // `theme.palette.boxShadow` which defines shadows semantically rather than

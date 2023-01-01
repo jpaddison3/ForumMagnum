@@ -245,6 +245,9 @@ const baseBodyStyles = (theme: ThemeType): JssStyles => ({
     top: '0.2em',
     paddingRight: '0.07em'
   },
+  ...(theme.boldLinks ? {'& a' : {
+    fontWeight: 'bold'
+  }} : {}),
   '& a, & a:hover, & a:active': {
     color: theme.palette.primary.main,
     '& u': {

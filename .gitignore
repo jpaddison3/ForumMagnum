@@ -87,6 +87,7 @@ cypress/videos/*
 
 myLocalDatabase
 myLocalDatabase/*
+db
 
 schema/schema_to_accept.sql
 
